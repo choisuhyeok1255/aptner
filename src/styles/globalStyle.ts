@@ -28,6 +28,10 @@ const globalStyles = css`
   input {
     outline: 0;
   }
+  a {
+    color: black;
+    text-decoration: none;
+  }
 `;
 
 export default globalStyles;
