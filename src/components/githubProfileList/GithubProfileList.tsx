@@ -1,19 +1,30 @@
 import React from "react";
 
-import type { User } from "@/types";
+import { Input } from "@/components";
+import { useGetUsers } from "@/services";
 import { GithubProfile } from "./containers";
+import { useSearchUser, useUsername } from "./hooks";
 import * as S from "./GithubProfileList.styled";
 
-interface GithubProfileListProps {
-  profiles?: User[];
-}
+const GithubProfileList = () => {
+  const { username, handleUsername } = useUsername();
+  const { usernameQuery } = useSearchUser({ username });
 
-const GithubProfileList = ({ profiles }: GithubProfileListProps) => {
+  const { data: profiles } = useGetUsers(
+    { query: { username: usernameQuery || "", page: 1 } },
+    !!usernameQuery
+  );
+
   return (
     <>
+      <Input
+        placeholder="유저 이름을 입력하세요."
+        value={username}
+        onChange={handleUsername}
+      />
       {profiles ? (
         <S.GithubProfileList>
-          {profiles.map((profile) => (
+          {profiles.items.map((profile) => (
             <GithubProfile
               key={profile.id}
               name={profile.login}
