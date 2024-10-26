@@ -27,10 +27,11 @@ const userKeys = {
     [...userKeys.Organizations(), req] as const,
 };
 
-export const useGetUsers = (req: GetUsersQueryModel) => {
+export const useGetUsers = (req: GetUsersQueryModel, enabled: boolean) => {
   return useQuery({
     queryKey: userKeys.user(req),
     queryFn: () => getUsersAPI(req),
+    enabled,
   });
 };
 
