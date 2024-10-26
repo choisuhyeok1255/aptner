@@ -10,7 +10,7 @@ const GithubProfileList = () => {
   const { username, handleUsername } = useUsername();
   const { usernameQuery } = useSearchUser({ username });
 
-  const { data: profiles } = useGetUsers(
+  const { data: profile } = useGetUsers(
     { query: { username: usernameQuery || "", page: 1 } },
     !!usernameQuery
   );
@@ -18,13 +18,14 @@ const GithubProfileList = () => {
   return (
     <>
       <Input
+        css={S.input}
         placeholder="유저 이름을 입력하세요."
         value={username}
         onChange={handleUsername}
       />
-      {profiles ? (
+      {profile ? (
         <S.GithubProfileList>
-          {profiles.items.map((profile) => (
+          {profile.items.map((profile) => (
             <GithubProfile
               key={profile.id}
               name={profile.login}
@@ -35,7 +36,7 @@ const GithubProfileList = () => {
           ))}
         </S.GithubProfileList>
       ) : (
-        <div>유저 이름을 검색해보세요.</div>
+        <S.EmptyList>리스트가 비어 있습니다.</S.EmptyList>
       )}
     </>
   );
