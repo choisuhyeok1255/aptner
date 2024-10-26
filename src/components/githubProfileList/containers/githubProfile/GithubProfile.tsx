@@ -67,6 +67,7 @@ const GithubProfile = ({
           height={75}
           src={profileUrl}
           alt={`${name}님의 프로필`}
+          priority
         />
       )}
       <S.ContentWarpper>
@@ -80,14 +81,17 @@ const GithubProfile = ({
               <S.Count>
                 {contentName === "followers"
                   ? followers?.length
-                  : contentName === "organizations"
+                  : contentName === "subscriptions"
                   ? subscriptions?.length
                   : organizations?.length}
               </S.Count>
             ) : (
-              <button type="button" onClick={handleSearchContent(contentName)}>
-                ********
-              </button>
+              <S.ClickButton
+                type="button"
+                onClick={handleSearchContent(contentName)}
+              >
+                Click me
+              </S.ClickButton>
             )}
           </S.Content>
         ))}

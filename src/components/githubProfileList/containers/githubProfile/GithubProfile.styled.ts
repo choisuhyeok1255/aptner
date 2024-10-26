@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 export const GithubProfile = styled.li`
   position: relative;
   display: flex;
-  width: 300px;
+  width: 400px;
   border: 1px solid #dadada;
   border-radius: 8px;
   padding: 10px;
@@ -23,7 +23,7 @@ export const ContentWarpper = styled.div`
 
 export const userName = css`
   display: block;
-  width: 150px;
+  width: 250px;
   margin-bottom: 5px;
   font-size: 16px;
   font-weight: 700;
@@ -33,6 +33,8 @@ export const userName = css`
 `;
 
 export const ContentName = styled.span`
+  display: flex;
+  align-items: center;
   font-size: 13px;
   font-weight: 600;
 `;
@@ -43,6 +45,10 @@ export const Content = styled.div`
 `;
 
 export const Count = styled.span`
+  font-size: 13px;
+`;
+
+export const ClickButton = styled.button`
   font-size: 13px;
 `;
 
