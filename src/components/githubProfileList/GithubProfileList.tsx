@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Input } from "@/components";
 import { useGetUsers } from "@/services";
@@ -10,9 +10,35 @@ const GithubProfileList = () => {
   const { username, handleUsername } = useUsername();
   const { usernameQuery } = useSearchUser({ username });
 
-  const { data: profile } = useGetUsers(
+  const {
+    data: profile,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetUsers(
     { query: { username: usernameQuery || "", page: 1 } },
     !!usernameQuery
+  );
+
+  const lastProfileRef = useCallback(
+    (node: HTMLLIElement | null) => {
+      if (!node) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasNextPage) {
+            fetchNextPage();
+          }
+        },
+        { threshold: 1 }
+      );
+
+      observer.observe(node);
+
+      return () => {
+        observer.unobserve(node);
+      };
+    },
+    [fetchNextPage, hasNextPage]
   );
 
   return (
@@ -23,20 +49,25 @@ const GithubProfileList = () => {
         value={username}
         onChange={handleUsername}
       />
-      {profile ? (
+      {profile?.pages.length ? (
         <S.GithubProfileList>
-          {profile.items.map((profile) => (
-            <GithubProfile
-              key={profile.id}
-              name={profile.login}
-              githubUrl={profile.html_url}
-              profileUrl={profile.avatar_url}
-              isBookmark={false}
-            />
-          ))}
+          {profile?.pages
+            .flatMap((item) => item.users)
+            .map((profile, i, profiles) => {
+              return (
+                <GithubProfile
+                  key={profile.id}
+                  ref={i === profiles.length - 1 ? lastProfileRef : null}
+                  name={profile.login}
+                  githubUrl={profile.html_url}
+                  profileUrl={profile.avatar_url}
+                  isBookmark={false}
+                />
+              );
+            })}
         </S.GithubProfileList>
       ) : (
-        <S.EmptyList>리스트가 비어 있습니다.</S.EmptyList>
+        <S.EmptyList>검색어를 입력하세요.</S.EmptyList>
       )}
     </>
   );
