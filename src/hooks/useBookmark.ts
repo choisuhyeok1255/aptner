@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import type { User } from "@/types";
 
 const useBookmark = () => {
-  const storageBookmark = localStorage.getItem("bookmark");
-
-  const [bookmarks, setBookmarks] = useState<User[]>(
-    storageBookmark ? JSON.parse(storageBookmark) : []
-  );
+  const [bookmarks, setBookmarks] = useState<User[]>(() => {
+    if (typeof window !== "undefined") {
+      const storageBookmark = localStorage.getItem("bookmark");
+      return storageBookmark ? JSON.parse(storageBookmark) : [];
+    }
+    return [];
+  });
 
   const handleCheckBookmark = (profile: User): boolean => {
     return !!bookmarks.find((user) => user.login === profile.login);
@@ -32,6 +34,7 @@ const useBookmark = () => {
   }, [bookmarks]);
 
   return {
+    bookmarks,
     handleBookmark,
     handleCheckBookmark,
   };
