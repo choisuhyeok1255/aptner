@@ -4,14 +4,16 @@ import styled from "@emotion/styled";
 export const GithubProfile = styled.li`
   position: relative;
   display: flex;
+  align-items: center;
   width: 400px;
+  height: 105px;
   border: 1px solid #dadada;
   border-radius: 8px;
   padding: 10px;
 `;
 
 export const profile = css`
-  margin-right: 2cqmin;
+  margin-right: 25px;
   border-radius: 50px;
 `;
 
@@ -52,10 +54,14 @@ export const ClickButton = styled.button`
   font-size: 13px;
 `;
 
-export const BookmarkButton = styled.button`
+export const bookmarkButton = css`
   position: absolute;
   top: 5px;
   right: 5px;
   width: 24px;
   height: 24px;
+`;
+
+export const BookmarkButton = styled.button`
+  ${bookmarkButton}
 `;
