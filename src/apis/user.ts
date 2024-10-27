@@ -10,12 +10,18 @@ import type {
   GetUserSubscriptionsServerModelType,
 } from "@/types";
 
+const PER_PAGE = 20 as const;
+
 export const getUsersAPI = async (req: GetUsersQueryModel) => {
   const { data } = await ax.get<GetUsersServerModel>(`search/users`, {
-    params: { q: req.query.username, page: req.query.page, per_page: 20 },
+    params: { q: req.query.username, page: req.query.page, per_page: PER_PAGE },
   });
 
-  return data;
+  return {
+    users: data.items,
+    nextPage: req.query.page + 1,
+    totalPages: Math.ceil(data.total_count / PER_PAGE),
+  };
 };
 
 export const getUserFollowersAPI = async (req: GetUserFollowersQueryModel) => {
