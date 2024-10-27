@@ -1,3 +1,5 @@
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
 import {
   getUserFollowersAPI,
   getUserOrganizationsAPI,
@@ -10,7 +12,6 @@ import {
   GetUsersQueryModel,
   GetUserSubscriptionsQueryModel,
 } from "@/types";
-import { useQuery } from "@tanstack/react-query";
 
 const userKeys = {
   all: ["user"] as const,
@@ -28,9 +29,16 @@ const userKeys = {
 };
 
 export const useGetUsers = (req: GetUsersQueryModel, enabled: boolean) => {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: userKeys.user(req),
-    queryFn: () => getUsersAPI(req),
+    queryFn: ({ pageParam }) =>
+      getUsersAPI({ query: { username: req.query.username, page: pageParam } }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.nextPage <= lastPage.totalPages
+        ? lastPage.nextPage
+        : undefined;
+    },
+    initialPageParam: 1,
     enabled,
   });
 };
