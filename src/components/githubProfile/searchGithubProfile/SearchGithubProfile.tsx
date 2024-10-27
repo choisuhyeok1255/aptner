@@ -1,33 +1,16 @@
 import React from "react";
 
 import { GithubProfileCardSkeleton, GithubProfiles, Input } from "@/components";
-import { useInfinityScroll } from "@/hooks";
-import { useGetUsers } from "@/services";
 import { CONTENT_NAMES } from "@/constants";
-import { useSearchUser, useUsername } from "../hooks";
+import { useUsernameSearchQuery, useUsername, useSearchProfile } from "./hooks";
 import * as S from "./SearchGithubProfile.styled";
 
 const SearchGithubProfile = () => {
   const { username, handleUsername } = useUsername();
-  const { usernameQuery } = useSearchUser({ username });
-
-  const {
-    data: profile,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-  } = useGetUsers(
-    { query: { username: usernameQuery || "", page: 1 } },
-    !!usernameQuery
-  );
-
-  const { lastRef } = useInfinityScroll({
-    hasNextPage,
-    handleFetchNextPage: fetchNextPage,
+  const { usernameQuery } = useUsernameSearchQuery({ username });
+  const { lastRef, profiles, profileStatus } = useSearchProfile({
+    usernameQuery: usernameQuery || "",
   });
-
-  const profiles = profile?.pages.flatMap((item) => item.users) || [];
 
   return (
     <>
@@ -37,17 +20,19 @@ const SearchGithubProfile = () => {
         value={username}
         onChange={handleUsername}
       />
-      {!usernameQuery && <S.EmptyList>검색어를 입력하세요.</S.EmptyList>}
-      {usernameQuery && isFetching && !profiles.length && (
+      {!profileStatus.hasQuery && (
+        <S.EmptyList>검색어를 입력하세요.</S.EmptyList>
+      )}
+      {profileStatus.isSearchingProfile && (
         <GithubProfileCardSkeleton skeletonCount={8} contents={CONTENT_NAMES} />
       )}
-      {usernameQuery && !profiles.length && !isFetching && (
+      {profileStatus.isEmptyProfiles && (
         <S.EmptyList>해당하는 유저가 없습니다.</S.EmptyList>
       )}
-      {!!profiles.length && (
+      {profileStatus.hasProfiles && (
         <GithubProfiles ref={lastRef} profiles={profiles} />
       )}
-      {isFetchingNextPage && (
+      {profileStatus.isFetchingNextPage && (
         <GithubProfileCardSkeleton skeletonCount={5} contents={CONTENT_NAMES} />
       )}
     </>
