@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import React from "react";
 
 import { GithubProfileCardSkeleton, GithubProfiles, Input } from "@/components";
+import { useInfinityScroll } from "@/hooks";
 import { useGetUsers } from "@/services";
 import { CONTENT_NAMES } from "@/constants";
 import { useSearchUser, useUsername } from "../hooks";
@@ -21,29 +22,12 @@ const SearchGithubProfile = () => {
     !!usernameQuery
   );
 
+  const { lastRef } = useInfinityScroll({
+    hasNextPage,
+    handleFetchNextPage: fetchNextPage,
+  });
+
   const profiles = profile?.pages.flatMap((item) => item.users) || [];
-
-  const lastProfileRef = useCallback(
-    (node: HTMLLIElement | null) => {
-      if (!node) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasNextPage) {
-            fetchNextPage();
-          }
-        },
-        { threshold: 1 }
-      );
-
-      observer.observe(node);
-
-      return () => {
-        observer.unobserve(node);
-      };
-    },
-    [fetchNextPage, hasNextPage]
-  );
 
   return (
     <>
@@ -61,7 +45,7 @@ const SearchGithubProfile = () => {
         <S.EmptyList>해당하는 유저가 없습니다.</S.EmptyList>
       )}
       {!!profiles.length && (
-        <GithubProfiles ref={lastProfileRef} profiles={profiles} />
+        <GithubProfiles ref={lastRef} profiles={profiles} />
       )}
       {isFetchingNextPage && (
         <GithubProfileCardSkeleton skeletonCount={5} contents={CONTENT_NAMES} />
