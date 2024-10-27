@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: { emotion: true },
-  images: {
-    domains: ["avatars.githubusercontent.com"],
-  },
+  images: { remotePatterns: [{ hostname: "avatars.githubusercontent.com" }] },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/i,
