@@ -1,7 +1,15 @@
-import React from "react";
+"use client";
+
+import { GithubProfileBookmarks } from "@/components";
+import * as S from "./page.styled";
 
 const Bookmark = () => {
-  return <div>Bookmark</div>;
+  return (
+    <S.Section>
+      <S.Heading>즐겨찾기 리스트</S.Heading>
+      <GithubProfileBookmarks />
+    </S.Section>
+  );
 };
 
 export default Bookmark;

@@ -1,3 +1,4 @@
+export { default as GithubProfileBookmarks } from "./githubProfileBookmarks/GithubProfileBookmarks";
 export { default as GithubProfileCard } from "./githubProfileCard/GithubProfileCard";
 export { default as GithubProfileCardSkeleton } from "./githubProfileCard/GithubProfileCard.skeleton";
 export { default as GithubProfiles } from "./githubProfiles/GithubProfiles";
