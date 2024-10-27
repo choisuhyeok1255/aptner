@@ -10,6 +10,7 @@ import {
   useGetUserOrganizations,
   useGetUserSubscriptions,
 } from "@/services";
+import { CONTENT_NAMES } from "@/constants";
 import { HeartEmptyIcon, HeartFillIcon } from "@public/icon";
 import * as S from "./GithubProfile.styled";
 
@@ -19,8 +20,6 @@ interface GithubProfileProps {
   profileUrl?: string;
   isBookmark: boolean;
 }
-
-const CONTENT_NAMES = ["followers", "organizations", "subscriptions"] as const;
 
 const GithubProfile = forwardRef<HTMLLIElement, GithubProfileProps>(
   ({ name, githubUrl, profileUrl, isBookmark }: GithubProfileProps, ref) => {
