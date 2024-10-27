@@ -12,17 +12,17 @@ import {
 } from "@/services";
 import { CONTENT_NAMES } from "@/constants";
 import { HeartEmptyIcon, HeartFillIcon } from "@public/icon";
-import * as S from "./GithubProfile.styled";
+import * as S from "./GithubProfileCard.styled";
 
-interface GithubProfileProps {
+interface GithubProfileCardProps {
   name: string;
   githubUrl: string;
   profileUrl?: string;
   isBookmark: boolean;
 }
 
-const GithubProfile = forwardRef<HTMLLIElement, GithubProfileProps>(
-  ({ name, githubUrl, profileUrl, isBookmark }: GithubProfileProps, ref) => {
+const GithubProfileCard = forwardRef<HTMLLIElement, GithubProfileCardProps>(
+  ({ name, githubUrl, profileUrl }, ref) => {
     const [content, setContent] = useState<
       Record<(typeof CONTENT_NAMES)[number], boolean>
     >({
@@ -44,9 +44,7 @@ const GithubProfile = forwardRef<HTMLLIElement, GithubProfileProps>(
       content.organizations
     );
 
-    const handleBookmark = (): void => {
-      console.log("handleBookmark");
-    };
+    const handleUpdateBookmark = () => (): void => {};
 
     const handleSearchContent =
       (contentKey: (typeof CONTENT_NAMES)[number]) => (): void => {
@@ -90,8 +88,8 @@ const GithubProfile = forwardRef<HTMLLIElement, GithubProfileProps>(
               )}
             </S.Content>
           ))}
-          <S.BookmarkButton type="button" onClick={handleBookmark}>
-            {isBookmark ? <HeartFillIcon /> : <HeartEmptyIcon />}
+          <S.BookmarkButton type="button" onClick={handleUpdateBookmark}>
+            {true ? <HeartFillIcon /> : <HeartEmptyIcon />}
           </S.BookmarkButton>
         </S.ContentWarpper>
       </S.GithubProfile>
@@ -99,6 +97,6 @@ const GithubProfile = forwardRef<HTMLLIElement, GithubProfileProps>(
   }
 );
 
-GithubProfile.displayName = "GithubProfile";
+GithubProfileCard.displayName = "GithubProfileCard";
 
-export default GithubProfile;
+export default GithubProfileCard;
