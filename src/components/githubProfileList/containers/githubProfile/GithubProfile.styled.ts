@@ -10,11 +10,22 @@ export const GithubProfile = styled.li`
   border: 1px solid #dadada;
   border-radius: 8px;
   padding: 10px;
+  transition: transform 0.2s ease;
+
+  :hover {
+    transform: scale(1.07);
+  }
 `;
 
 export const profile = css`
   margin-right: 25px;
   border-radius: 50px;
+  transition: transform 0.3s ease;
+
+  :hover {
+    transition-delay: 0.5s;
+    transform: scale(1.5);
+  }
 `;
 
 export const ContentWarpper = styled.div`
