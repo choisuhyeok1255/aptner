@@ -7,43 +7,41 @@ import { capitalize } from "lodash-es";
 
 import { CONTENT_NAMES } from "@/constants";
 import { HeartEmptyIcon, HeartFillIcon } from "@public/icon";
+import type { User } from "@/types";
 import { useProfileDetail } from "./hooks";
 import * as S from "./GithubProfileCard.styled";
 
 interface GithubProfileCardProps {
-  name: string;
-  githubUrl: string;
-  profileUrl?: string;
+  profile: User;
   isBookmark: boolean;
+  handleBookmark: (profile: User) => () => void;
 }
 
 const GithubProfileCard = forwardRef<HTMLLIElement, GithubProfileCardProps>(
-  ({ name, githubUrl, profileUrl }, ref) => {
+  ({ profile, isBookmark, handleBookmark }, ref) => {
     const {
       content,
       followers,
       subscriptions,
       organizations,
       handleSearchContent,
-    } = useProfileDetail({ name });
-
-    const handleUpdateBookmark = () => (): void => {};
+    } = useProfileDetail({ name: profile.login });
 
     return (
       <S.GithubProfile ref={ref}>
-        {profileUrl && (
+        {profile.avatar_url && (
           <Image
             css={S.profile}
             width={75}
             height={75}
-            src={profileUrl}
-            alt={`${name}님의 프로필`}
+            src={profile.avatar_url}
+            alt={`${profile.login}님의 프로필`}
             priority
           />
         )}
         <S.ContentWarpper>
-          <Link css={S.userName} href={githubUrl} target="_blank">
-            {name}
+          <Link css={S.userName} href={profile.html_url} target="_blank">
+            {profile.login}
           </Link>
           {CONTENT_NAMES.map((contentName) => (
             <S.Content key={contentName}>
@@ -66,8 +64,8 @@ const GithubProfileCard = forwardRef<HTMLLIElement, GithubProfileCardProps>(
               )}
             </S.Content>
           ))}
-          <S.BookmarkButton type="button" onClick={handleUpdateBookmark}>
-            {true ? <HeartFillIcon /> : <HeartEmptyIcon />}
+          <S.BookmarkButton type="button" onClick={handleBookmark(profile)}>
+            {isBookmark ? <HeartFillIcon /> : <HeartEmptyIcon />}
           </S.BookmarkButton>
         </S.ContentWarpper>
       </S.GithubProfile>
