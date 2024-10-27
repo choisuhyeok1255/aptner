@@ -1,17 +1,13 @@
 "use client";
 
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { capitalize } from "lodash-es";
 
-import {
-  useGetUserFollowers,
-  useGetUserOrganizations,
-  useGetUserSubscriptions,
-} from "@/services";
 import { CONTENT_NAMES } from "@/constants";
 import { HeartEmptyIcon, HeartFillIcon } from "@public/icon";
+import { useProfileDetail } from "./hooks";
 import * as S from "./GithubProfileCard.styled";
 
 interface GithubProfileCardProps {
@@ -23,33 +19,15 @@ interface GithubProfileCardProps {
 
 const GithubProfileCard = forwardRef<HTMLLIElement, GithubProfileCardProps>(
   ({ name, githubUrl, profileUrl }, ref) => {
-    const [content, setContent] = useState<
-      Record<(typeof CONTENT_NAMES)[number], boolean>
-    >({
-      followers: false,
-      organizations: false,
-      subscriptions: false,
-    });
-
-    const { data: followers } = useGetUserFollowers(
-      { query: { username: name } },
-      content.followers
-    );
-    const { data: subscriptions } = useGetUserSubscriptions(
-      { query: { username: name } },
-      content.subscriptions
-    );
-    const { data: organizations } = useGetUserOrganizations(
-      { query: { username: name } },
-      content.organizations
-    );
+    const {
+      content,
+      followers,
+      subscriptions,
+      organizations,
+      handleSearchContent,
+    } = useProfileDetail({ name });
 
     const handleUpdateBookmark = () => (): void => {};
-
-    const handleSearchContent =
-      (contentKey: (typeof CONTENT_NAMES)[number]) => (): void => {
-        setContent((prevContent) => ({ ...prevContent, [contentKey]: true }));
-      };
 
     return (
       <S.GithubProfile ref={ref}>
@@ -70,7 +48,7 @@ const GithubProfileCard = forwardRef<HTMLLIElement, GithubProfileCardProps>(
           {CONTENT_NAMES.map((contentName) => (
             <S.Content key={contentName}>
               <S.ContentName>{`${capitalize(contentName)}`}:</S.ContentName>
-              {content[contentName] ? (
+              {content[contentName].isOpen ? (
                 <S.Count>
                   {contentName === "followers"
                     ? followers?.length
