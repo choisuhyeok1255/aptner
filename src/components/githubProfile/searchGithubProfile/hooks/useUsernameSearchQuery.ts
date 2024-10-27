@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { debounce } from "lodash-es";
 
-interface UseSearchUserProps {
+interface UseUsernameSearchQueryProps {
   username: string;
 }
 
-const useSearchUser = ({ username }: UseSearchUserProps) => {
+const useUsernameSearchQuery = ({ username }: UseUsernameSearchQueryProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -39,4 +39,4 @@ const useSearchUser = ({ username }: UseSearchUserProps) => {
   };
 };
 
-export default useSearchUser;
+export default useUsernameSearchQuery;
