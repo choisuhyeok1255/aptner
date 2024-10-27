@@ -2,17 +2,16 @@ import React, { forwardRef } from "react";
 
 import { GithubProfileCard } from "@/components";
 import type { User } from "@/types";
-import { useBookmark } from "./hooks";
 import * as S from "./GithubProfiles.styled";
 
 interface GithubProfilesProps {
   profiles: User[];
+  handleCheckBookmark: (profile: User) => boolean;
+  handleBookmark: (profile: User) => () => void;
 }
 
 const GithubProfiles = forwardRef<HTMLLIElement, GithubProfilesProps>(
-  ({ profiles }, ref) => {
-    const { handleBookmark, handleCheckBookmark } = useBookmark();
-
+  ({ profiles, handleBookmark, handleCheckBookmark }, ref) => {
     return (
       <S.GithubProfileWrapper>
         {profiles.map((profile, i) => (

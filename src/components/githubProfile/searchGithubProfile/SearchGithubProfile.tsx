@@ -1,6 +1,7 @@
 import React from "react";
 
 import { GithubProfileCardSkeleton, GithubProfiles, Input } from "@/components";
+import { useBookmark } from "@/hooks";
 import { CONTENT_NAMES } from "@/constants";
 import { useUsernameSearchQuery, useUsername, useSearchProfile } from "./hooks";
 import * as S from "./SearchGithubProfile.styled";
@@ -11,6 +12,7 @@ const SearchGithubProfile = () => {
   const { lastRef, profiles, profileStatus } = useSearchProfile({
     usernameQuery: usernameQuery || "",
   });
+  const { handleBookmark, handleCheckBookmark } = useBookmark();
 
   return (
     <>
@@ -30,7 +32,12 @@ const SearchGithubProfile = () => {
         <S.EmptyList>해당하는 유저가 없습니다.</S.EmptyList>
       )}
       {profileStatus.hasProfiles && (
-        <GithubProfiles ref={lastRef} profiles={profiles} />
+        <GithubProfiles
+          ref={lastRef}
+          profiles={profiles}
+          handleBookmark={handleBookmark}
+          handleCheckBookmark={handleCheckBookmark}
+        />
       )}
       {profileStatus.isFetchingNextPage && (
         <GithubProfileCardSkeleton skeletonCount={5} contents={CONTENT_NAMES} />
