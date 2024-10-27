@@ -2,6 +2,9 @@
 
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Global } from "@emotion/react";
+
+import { globalStyle } from "@/styles";
 
 const makeQueryClient = () => {
   return new QueryClient({
@@ -28,7 +31,10 @@ const Provider = ({ children }: ProviderProps) => {
   const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <>
+      <Global styles={globalStyle} />
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </>
   );
 };
 
