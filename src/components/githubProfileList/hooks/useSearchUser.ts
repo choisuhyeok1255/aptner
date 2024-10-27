@@ -17,9 +17,11 @@ const useSearchUser = ({ username }: UseSearchUserProps) => {
 
     const trimUsername = value.trim();
 
-    trimUsername
-      ? params.set("username", trimUsername)
-      : params.delete("username");
+    if (trimUsername) {
+      params.set("username", trimUsername);
+    } else {
+      params.delete("username");
+    }
 
     router.push(params.toString() ? `?${params.toString()}` : "/");
   }, 700);
