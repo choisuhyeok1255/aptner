@@ -1,37 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Github User Search
 
-## Getting Started
+## 기능 설명
 
-First, run the development server:
+### 유저 검색 페이지
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 1. 유저 이름 검색 input → 검색한 유저의 이름이 포함된 리스트 반환
+- 2. 검색 결과가 20개 이상일 시 무한 스크롤 UI로 Loading Indicator 역할
+- 2. 리스트의 하트 버튼 클릭 시 북마크 저장 기능 -> 북마크에 추가된 유저는 빨간색 하트 아이콘, 추가가 안된 유저는 비어있는 하트 아이콘
+- 3. 리스트의 Followers, Organizations, Subscriptions Check button 클릭 시 해당 데이터 조회
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 북마크 페이지
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 1. 유저 검색 페이지에서 추가한 북마크 유저 리스트
+- 2. 추가한 북마크 유저 해제 기능
 
-## Learn More
+<br />
 
-To learn more about Next.js, take a look at the following resources:
+## 추가기능
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- querystring 사용해 필터 검색어 저장(검색 후 새로고침 시 검색어 저장)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<br />
 
-## Deploy on Vercel
+## 로컬 환경 프로젝트 실행 방법
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# aptner
+1. npm install
+2. npm run dev
+3. http://localhost:3000/ 접속
