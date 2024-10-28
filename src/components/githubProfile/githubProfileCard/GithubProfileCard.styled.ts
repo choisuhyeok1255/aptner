@@ -1,6 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const GithubProfileSkeletonWrapper = styled.ul`
+  padding: 10px;
+`;
+
 const commonWrapper = css`
   position: relative;
   display: flex;
