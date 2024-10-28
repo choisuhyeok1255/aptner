@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <S.Section>
       <S.Heading>깃허브 유저 검색</S.Heading>
-      <SearchGithubProfile />
+      <SearchGithubProfile css={S.searchGithubProfile} />
     </S.Section>
   );
 };
