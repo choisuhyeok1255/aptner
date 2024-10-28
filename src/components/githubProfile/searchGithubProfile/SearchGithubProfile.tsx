@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import { GithubProfileCardSkeleton, GithubProfiles, Input } from "@/components";
