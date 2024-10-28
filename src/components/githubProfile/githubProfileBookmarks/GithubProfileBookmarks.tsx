@@ -16,7 +16,7 @@ const GithubProfileBookmarks = () => {
           handleCheckBookmark={handleCheckBookmark}
         />
       ) : (
-        <S.EmptyBookmarks>북마크에 추가한 유저가 없습니다.</S.EmptyBookmarks>
+        <S.EmptyBookmarks>북마크에 추가한 유저가 없습니다</S.EmptyBookmarks>
       )}
     </>
   );
