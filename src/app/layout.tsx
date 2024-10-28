@@ -1,18 +1,13 @@
-import localFont from "next/font/local";
+import { Noto_Sans_KR } from "next/font/google";
+
 import type { Metadata } from "next";
 
 import Header from "@/components/header/Header";
 import Provider from "./provider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const notoSansKR = Noto_Sans_KR({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +28,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={notoSansKR.className}>
         <main>
           <Header />
           <Provider>{children}</Provider>
