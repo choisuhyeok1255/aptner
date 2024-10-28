@@ -1,18 +1,22 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const GithubProfileList = styled.ul`
+export const Wrapper = styled.div`
   display: flex;
   flex-flow: column;
-  row-gap: 10px;
-  margin-bottom: 10px;
+  align-items: center;
+  overflow: auto;
 `;
 
 export const input = css`
-  width: 100%;
-  margin-bottom: 10px;
+  width: 400px;
+  margin: 10px 0;
 `;
 
 export const EmptyList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   font-size: 20px;
 `;
