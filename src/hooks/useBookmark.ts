@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 
 import type { User } from "@/types";
+import useMounted from "./useMounted";
 
 const useBookmark = () => {
+  const { isMounted } = useMounted();
+
   const [bookmarks, setBookmarks] = useState<User[]>(() => {
     if (typeof window !== "undefined") {
       const storageBookmark = localStorage.getItem("bookmark");
@@ -34,7 +37,7 @@ const useBookmark = () => {
   }, [bookmarks]);
 
   return {
-    bookmarks,
+    bookmarks: isMounted ? bookmarks : [],
     handleBookmark,
     handleCheckBookmark,
   };
