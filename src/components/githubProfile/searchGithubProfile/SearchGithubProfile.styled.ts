@@ -9,7 +9,9 @@ export const Wrapper = styled.div`
 `;
 
 export const input = css`
+  flex-shrink: 0;
   width: 400px;
+  height: 50px;
   margin: 10px 0;
 `;
 
