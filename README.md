@@ -8,6 +8,7 @@
 - 검색 중 Skeleton UI로 검색 중 표현
 - 검색 결과가 20개 이상일 시 무한 스크롤 UI로 Loading Indicator 역할
 - 리스트의 하트 버튼 클릭 시 북마크 저장 기능 → 북마크에 추가된 유저는 빨간색 하트 아이콘, 추가가 안된 유저는 비어있는 하트 아이콘
+- 리스트의 유저 이름 클릭시 유저 깃허브 페이지로 이동(새 창)
 - 리스트의 Followers, Organizations, Subscriptions Check button 클릭 시 해당 데이터 조회
 
 <br />
