@@ -14,7 +14,7 @@ const GithubProfileSkeleton = ({
   contents,
 }: GithubProfileSkeletonProps) => {
   return Array.from({ length: skeletonCount }).map((_, i) => (
-    <S.GithubProfile key={i}>
+    <S.GithubProfileSkeleton key={i}>
       <Skeleton css={S.profile} width={75} height={75} />
       <S.ContentWarpper>
         <Skeleton width={200} />
@@ -23,7 +23,7 @@ const GithubProfileSkeleton = ({
         ))}
       </S.ContentWarpper>
       <Skeleton css={S.bookmarkButton} width={24} height={24} />
-    </S.GithubProfile>
+    </S.GithubProfileSkeleton>
   ));
 };
 

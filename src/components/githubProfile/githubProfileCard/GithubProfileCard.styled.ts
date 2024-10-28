@@ -1,20 +1,28 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const GithubProfile = styled.li`
+const commonWrapper = css`
   position: relative;
   display: flex;
   align-items: center;
   width: 400px;
   height: 105px;
-  border: 1px solid #dadada;
   border-radius: 8px;
   padding: 10px;
+`;
+
+export const GithubProfile = styled.li`
+  ${commonWrapper}
   transition: transform 0.2s ease;
 
   :hover {
     transform: scale(1.07);
+    box-shadow: 0px 4px 14px 6px #97979726;
   }
+`;
+
+export const GithubProfileSkeleton = styled.li`
+  ${commonWrapper}
 `;
 
 export const profile = css`
